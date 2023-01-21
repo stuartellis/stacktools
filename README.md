@@ -4,15 +4,13 @@ This tooling uses built-in features of Terraform to support both multiple compon
 
 Each infrastructure component is a separate Terraform root module. The Terraform root modules are referred to as *stacks*.
 
-You can add the *stacktools* to any project by copying a  file into the project repository. The tooling only requires a UNIX shell, the Make utility and the [jq](https://stedolan.github.io/jq/) command-line tool.
+You can add the *stacktools* to any project by copying a  file into the project repository. The tooling only requires a UNIX environment and the [jq](https://stedolan.github.io/jq/) command-line tool.
 
 By default, the tools use Docker and a container to provide Terraform. You can override this to either provide your own container image, or use a separate copy of Terraform.
 
 > **The Stacks Specification:** The *stacktools* follow a documented and versioned set of conventions. This means that you can use these modules without the *stacktools*, and develop other tools to work with the stacks. If you fork this repository, update the URL in the file *make/tools/stacktools/stacktools-core.mk* to point to the conventions README in your fork.
 
-## Set Up
-
-### Visual Studio Code
+## Development
 
 This project includes the configuration for a [development container](https://containers.dev/). This means that Visual Studio Code and Visual Studio can set up a working environment for you on any operating system.
 
@@ -26,12 +24,16 @@ To run the project on Visual Studio Code:
 
 > The development containers configuration provides a Debian container for compatibility with Python code.
 
-## Adding Stack Tools to a Project
+## Adding the Stack Tools to a Project
+
+### Requirements
 
 The Stack Tools require:
 
 - A UNIX shell
 - *GNU Make* 3 or above
+- Git
+- tar
 - [jq](https://stedolan.github.io/jq/)
 - EITHER: Docker OR provide Terraform 1.x separately
 
@@ -39,15 +41,17 @@ The tooling is compatible with the UNIX shell and Make versions that are provide
 
 > /!\ **WSL:** The project and tooling are not yet tested on WSL. They should work correctly on any WSL environment that has Make, jq and Docker installed. Alternatively, use a development container.
 
-Create the directory *make/tools/stacktools*:
+### Set Up
+
+1. Create the directory *make/tools/stacktools*:
 
     mkdir -p make/tools/stacktools
 
-Copy this file into the new directory:
+2. Copy this file into the new directory:
 
     make/tools/stacktools/stacktools-core.mk
 
-The following *include* and *variables* must be present in the top-level Makefile for your project:
+3. Ensure that the following *include* and *variables* are present in the top-level Makefile for your project:
 
 ```make
 PROJECT_DIR		:= $(shell pwd)
@@ -58,13 +62,15 @@ include make/tools/stacktools/*.mk
 
 > This does not interfere with any other uses of Make. All of the targets and variables in these *mk* files are namespaced.
 
-Once you have added the Make configuration, run this command to set up the Stack Tools:
+4. Once you have the Make configuration, run this command to set up the Stack Tools:
 
     make stacktools-init
 
-All of the files for Terraform are in the directory *terraform1/*. Specify the Terraform remote state settings for each environment. Edit the *backend.json* for each environment in the *terraform1/stacks/environments/* directory.
+5. Specify the Terraform remote state settings for each environment. Edit the *backend.json* for each environment in the *terraform1/stacks/environments/* directory.
 
-Refer to the conventions for the expected directory structure.
+6. Use the *stackrunner-build* target to create a Docker container image for Terraform:
+
+    make stackrunner-build
 
 ## Using the Stack Tools
 
@@ -170,7 +176,7 @@ If you run all of the deployment process for your project in a container, includ
 
     make stack-apply ENVIRONMENT=dev STACK_NAME=example_app ST_RUN_CONTAINER=false
 
-### Cross-Architecture Support
+## Cross-Architecture Support
 
 By default, *stackrunner-build* builds the *stacktools-runner* container image for the same CPU architecture as the machine that the command is run on. To build for another CPU architecture, override *ST_RUNNER_TARGET_CPU_ARCH*. For example, specify *arm64* for ARM:
 
