@@ -26,6 +26,6 @@ stacktools-info:
 
 .PHONY: stacktools-update
 stacktools-update:
-	@git archive --remote git@gitlab.com:stuartellis-org/stacktools.git --format tar --output stacktools.tar main
-	@tar -xvzf stacktools.tar docker/tools/stacktools make/tools/stacktools
-	@rm stacktools.tar
+	@git archive --remote git@gitlab.com:stuartellis-org/stacktools.git --format tar --output stacktools-DELETE-ME.tar main
+	@tar -xzf stacktools.tar docker/tools/stacktools make/tools/stacktools
+	@rm stacktools-DELETE-ME.tar
