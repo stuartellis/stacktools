@@ -2,8 +2,6 @@
 #
 # Makefile targets and variables
 #
-# Requirements: Docker, a UNIX shell, GNU Make 3 or above
-#
 # Override the versions variables to change the container build
 #
 # To build for another CPU architecture, override ST_RUNNER_TARGET_CPU_ARCH

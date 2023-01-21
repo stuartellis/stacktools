@@ -8,12 +8,12 @@
 ###### Versions ######
 
 ST_STACKTOOLS_VERSION		:= 0.4.15
-ST_STACKTOOLS_REPO			:= git@gitlab.com:stuartellis-org/stacktools.git
+ST_STACKTOOLS_REPO_URL		:= git@gitlab.com:stuartellis-org/stacktools.git
 ST_STACKTOOLS_REPO_BRANCH	:= main
 ST_STACKTOOLS_PKG			:= stacktools-DELETE-ME.tar
 
-ST_STACKS_SPEC_VERSION	:= 0.4.0
-ST_STACKS_SPEC_URL		:= https://gitlab.com/stuartellis-org/stacktools/-/tree/main/docs/terraform-stacks-spec/$(ST_STACKS_SPEC_VERSION)/README.md
+ST_STACKS_SPEC_VERSION		:= 0.4.0
+ST_STACKS_SPEC_URL			:= https://gitlab.com/stuartellis-org/stacktools/-/tree/main/docs/terraform-stacks-spec/$(ST_STACKS_SPEC_VERSION)/README.md
 
 ###### Docker Image ######
 
@@ -35,6 +35,6 @@ stacktools-init:
 
 .PHONY: stacktools-update
 stacktools-update:
-	@git archive --remote $(ST_STACKTOOLS_REPO) --format tar --output $(ST_STACKTOOLS_PKG) $(ST_STACKTOOLS_REPO_BRANCH)
+	@git archive --remote $(ST_STACKTOOLS_REPO_URL) --format tar --output $(ST_STACKTOOLS_PKG) $(ST_STACKTOOLS_REPO_BRANCH)
 	@tar -xzf $(ST_STACKTOOLS_PKG) docker/tools/stacktools make/tools/stacktools
 	@rm $(ST_STACKTOOLS_PKG)
