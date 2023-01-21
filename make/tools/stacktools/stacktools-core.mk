@@ -17,7 +17,9 @@ ST_STACKS_SPEC_URL			:= https://gitlab.com/stuartellis-org/stacktools/-/tree/mai
 
 ###### Docker Image ######
 
-STACK_RUNNER_IMAGE		?= stacktools-runner:developer
+STACK_TOOLS_RUNNER_IMAGE	?= stacktools-runner:developer
+
+###### Targets ######
 
 .PHONY: stacktools-info
 stacktools-info:

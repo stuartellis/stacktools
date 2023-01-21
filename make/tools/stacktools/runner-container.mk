@@ -1,4 +1,4 @@
-# Terraform Stack Tools - Runner Container
+# Stack Tools - Runner Container
 #
 # Makefile targets and variables
 #
@@ -10,7 +10,7 @@
 
 ###### Versions ######
 
-ST_RUNNER_TERRAFORM_VERSION		?= 1.3.6
+ST_RUNNER_TERRAFORM_VERSION		?= 1.3.7
 ST_RUNNER_IMAGE_BASE			?= alpine:3.17.0
 ST_RUNNER_VERSION				?= developer
 
