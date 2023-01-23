@@ -181,9 +181,7 @@ Here is an example of the Terraform:
 terraform {
   required_version = "> 1.0.0"
 
-  backend "s3" {
-    workspace_key_prefix = "workspaces"
-  }
+  backend "s3" {}
 
   required_providers {
     aws = {
